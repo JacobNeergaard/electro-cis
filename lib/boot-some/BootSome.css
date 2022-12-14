@@ -1,0 +1,211 @@
+/*
+BootSome is licensed under the Apache License 2.0 license
+https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
+*/
+h1 {
+	font-size: 2rem;
+}
+button.btn i + *, a.btn i + *,.dropdown-item i + * {
+	margin-left: .5rem;
+}
+hr {
+	margin: .5rem 0;
+}
+a {
+	text-decoration: none;
+}
+body.modal-open {
+	overflow: hidden;
+}
+div.modal {
+	display: block;
+}
+div.modal-backdrop {
+	opacity: .5;
+}
+div.modal-header, div.modal-footer {
+	padding: .5rem 1rem;
+}
+div.modal-header > *, div.modal-footer > * {
+	margin: 0rem;
+}
+.modal-body {
+	padding-top: .5rem;
+	padding-bottom: 0rem;
+}
+.modal-body:not(:first-child), div.modal-footer {
+	border-top: 1px solid #dee2e6;
+}
+div.modal-header {
+	border-bottom: 0px;
+}
+.modal-body .form-inline label {
+	margin-right: auto!important;
+	display: block;
+}
+dialog#dialog {
+	border: none;
+	height: 100%;
+	width: 100%;
+}
+@media (min-width: 992px) {
+	div.modal-dialog {
+		max-width: 950px;
+	}
+}
+@media (min-width: 576px) {
+	modal.modal-dialog {
+		max-width: 500px;
+		margin: 1.75rem auto;
+	}
+}
+div.modal-content ul.nav-tabs {
+	padding: 0rem 1rem;
+}
+nav.navbar{
+	margin-bottom: .5rem;
+}
+nav.navbar .navbar-brand {
+	height: 2.5rem;
+	margin-right: .5rem;
+}
+nav.navbar .navbar-brand img {
+	height: 100%;
+	margin-right: .5rem;
+}
+nav.navbar .navbar-nav {
+	margin-left: auto!important;
+}
+div button.btn:not(:last-child), div a.btn:not(:last-child) {
+	margin-right: .5rem;
+}
+div.form-inline {
+	margin-bottom: .5rem;
+}
+nav.navbar div.form-inline {
+	margin-bottom: 0rem;
+}
+table.table button.btn,
+table.table a.btn,
+div.form-inline button.btn,
+div.form-inline a.btn {
+	padding: .25rem .5rem;
+	font-size: .875rem;
+	border-radius: .2rem;
+}
+table.table input.form-control,
+div.form-inline input.form-control {
+	min-height: calc(1.5em + .5rem + 2px);
+	padding: .25rem .5rem;
+	font-size: .875rem;
+	border-radius: .2rem;
+}
+table.table select.form-select,
+div.form-inline select.form-select {
+	padding-top: .25rem;
+	padding-bottom: .25rem;
+	padding-left: .5rem;
+	font-size: .875rem;
+}
+table.table {
+	margin-bottom: .5rem;
+}
+table.table td,
+table.table th {
+	padding: .3rem;
+	font-size: 0.85em;
+	white-space: nowrap;
+}
+table.table>:not(:last-child)>:last-child>* {
+	border-bottom-color: inherit;
+}
+table.table tr[onclick], table.table td[onclick], div[onclick], span[onclick] {
+	cursor: pointer;
+}
+table.table tr td[wrap] {
+	min-width: 200px;
+	white-space: normal !important;
+}
+table.table tr td[ellipsis] {
+	max-width: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+input.form-control[right],
+table tr td[right],
+table tr th[right] {
+	text-align: right !important;
+}
+table tr td[center],
+table tr th[center] {
+	text-align: center !important;
+}
+table tr td[monospace] {
+	font-family: "Fira Code", monospace;
+}
+table.table td > ul {
+	margin: 0em;
+}
+tr .badge {
+	vertical-align: top;
+	width: 100%;
+}
+table.table:not(.bs-datepicker) tbody tr:nth-of-type(odd) {
+	--bs-table-accent-bg: var(--bs-table-striped-bg);
+	color: var(--bs-table-striped-color);
+}
+table.table:not(.bs-datepicker) tbody tr:hover>td,
+table.bs-datepicker td:hover {
+	--bs-table-accent-bg: var(--bs-table-hover-bg);
+	color: var(--bs-table-hover-color);
+}
+div.bs-datepicker {
+	width: 100%;
+}
+div.bs-datepicker td {
+	cursor: pointer;
+}
+div.card {
+	margin-bottom: .5rem;
+}
+div.card div.row:last-child > * {
+	margin-bottom: 0px !important;
+}
+div.card table.table {
+	margin-bottom: 0px;
+}
+div.card table.table tr:last-child td {
+	border-bottom: 0px;
+}
+div.card table.table tr td:first-child,
+div.card table.table tr th:first-child {
+	padding-left: 1rem;
+}
+div.card table.table tr td:last-child,
+div.card table.table tr th:last-child {
+	padding-right: 1rem;
+}
+nav ul.pagination {
+	justify-content: center!important;
+	margin-bottom: .5rem;
+}
+nav ul.pagination button.page-link {
+	padding: .25rem .5rem;
+	font-size: .875rem;
+}
+nav ul.pagination li.page-item button {
+	width: 3rem;
+}
+nav ol.breadcrumb {
+	font-size: .875rem;
+	background-color: inherit;
+	margin-bottom: .5rem;
+}
+h1 + nav ol.breadcrumb {
+	margin-top: -.5rem;
+}
+div.alert {
+	margin-bottom: .5rem;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
+}
