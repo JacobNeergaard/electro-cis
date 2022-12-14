@@ -3,7 +3,7 @@ error_reporting(E_ALL | E_STRICT);
 
 date_default_timezone_set('Europe/Copenhagen');
 
-define('TITLE','Electronic :: ERP');
+define('TITLE','Electro :: CIS');
 
 require_once __DIR__.'/lib/heal-document/HealDocument.php';
 require_once __DIR__.'/lib/boot-some/BootSome.php';
