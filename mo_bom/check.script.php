@@ -20,11 +20,11 @@ $tr->th()->te('Error');
 $tbody = $table->tbody();
 while(($row = fgetcsv($file, 0)) !== FALSE) {
 	$error = [];
-	$reference = utf8_encode($row[0]);
-	$value = utf8_encode($row[1]);
-	$symbol = utf8_encode($row[2]);
-	$footprint = utf8_encode($row[3]);
-	$item = utf8_encode($row[4]);
+	$reference = $row[0];
+	$value = $row[1];
+	$symbol = $row[2];
+	$footprint = $row[3];
+	$item = $row[4];
 	
 	if(strpos($footprint,'erp:')===0) {
 		$footprint = substr($footprint, 4);
