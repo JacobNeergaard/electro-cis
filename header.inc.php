@@ -36,9 +36,9 @@ function navbar() {
 	$collapse = $navbar->collapse();
 	$nav = $collapse->nav();
 
-	$nav->a('#','Items')->at(['onclick'=>"Ufo.get('main','".ROOT."mo_item/list.php');"]);
-	$nav->a('#','Structure')->at(['onclick'=>"Ufo.get('main','".ROOT."mo_structure/list.php');"]);
-	$nav->a('#','Symbol')->at(['onclick'=>"Ufo.get('main','".ROOT."mo_symbol/list.php');"]);
-	$nav->a('#','Footprint')->at(['onclick'=>"Ufo.get('main','".ROOT."mo_footprint/list.php');"]);
-	$nav->a('#','BOM Check')->at(['onclick'=>"Ufo.get('main','".ROOT."mo_bom/check.php');"]);
+	$nav->a('#','Items')->at(['onclick'=>"Ufo.get('main','".__ROOT__."/mo_item/list.php');"]);
+	$nav->a('#','Structure')->at(['onclick'=>"Ufo.get('main','".__ROOT__."/mo_structure/list.php');"]);
+	$nav->a('#','Symbol')->at(['onclick'=>"Ufo.get('main','".__ROOT__."/mo_symbol/list.php');"]);
+	$nav->a('#','Footprint')->at(['onclick'=>"Ufo.get('main','".__ROOT__."/mo_footprint/list.php');"]);
+	$nav->a('#','BOM Check')->at(['onclick'=>"Ufo.get('main','".__ROOT__."/mo_bom/check.php');"]);
 }

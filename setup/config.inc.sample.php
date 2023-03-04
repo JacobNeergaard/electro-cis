@@ -1,5 +1,5 @@
 <?php
-define('ROOT','/');
+define('__ROOT__','');
 
 define('DBHOST','localhost');
 define('DBUSER','electronic');
