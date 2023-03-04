@@ -4,7 +4,7 @@ require_once __DIR__.'/../header.inc.php';
 $name = $mysqli->real_escape_string($_POST['name']);
 $description = $mysqli->real_escape_string($_POST['description']);
 $data = $_POST['data'];
-$data = str_replace("\r",'',$data);
+$data = trim(str_replace("\r",'',$data));
 $data = $mysqli->real_escape_string($data);
 
 if(isset($_POST['symbol_id'])) {

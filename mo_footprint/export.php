@@ -5,7 +5,7 @@ $sql = "SELECT `name`,`data` FROM footprint ORDER BY name";
 $query = $mysqli->query($sql);
 
 while($rs = $query->fetch_object()) {
-	$filename = PATH_FOOTPRINT.$rs->name.'.kicad_mod';
+	$filename = PATH_FOOTPRINT.'/'.$rs->name.'.kicad_mod';
 	$myfile = fopen($filename, 'w');
 	$res = fwrite($myfile, $rs->data);
 	fclose($myfile);

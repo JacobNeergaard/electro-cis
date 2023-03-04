@@ -10,6 +10,6 @@ $form = $div->form()->at(['id'=>'convert']);
 
 $group = $form->form_horizontal(4);
 $group->label('Input','file');
-$group->file('file')->at(['onchange'=>"Ufo.post('main','mo_bom/check.script.php','convert')"],HEAL_ATTR_APPEND);
+$group->file('file')->at(['onchange'=>"Ufo.post('main','mo_bom/check.script.php','convert')"],true);
 
 Ufo::output('content',$doc);
