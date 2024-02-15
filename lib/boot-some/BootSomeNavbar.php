@@ -3,54 +3,74 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
-trait BootSomeNavbarCommon {
-	public function nav(){
-		$element = new BootSomeNavbarNav('div');
-		$this->appendChild($element);
+class BootSomeNavbar extends HealPlugin {
+	public static function navbar($parent, $fluid = true, $nav_classes = ''){
+		$classes = array_filter(explode(' ','navbar '.$nav_classes));
+		$add_expand = true;
+		foreach($classes as $class){
+			if(substr($class, 0, 14) == 'navbar-expand-'){
+				$add_expand = false;
+				break;
+			}
+		}
+		if($add_expand){
+			$classes[] = 'navbar-expand-md';
+		}
 
-		$element->at(['class'=>'navbar-nav']);
-		return $element;
+		$nav = $parent->el('nav',['class'=>implode(' ',$classes)]);
+
+		return new BootSomeNavbar($nav, $fluid);
 	}
-}
 
-class BootSomeNavbar extends BootSomeElement {
-	use BootSomeNavbarCommon;
+	public function __construct($parent, bool $fluid){
+		$this->primary_element = $parent->el('div',['class'=>$fluid?'container-fluid':'container']);
+	}
+
+	public function nav(){
+		return new BootSomeNavbarNav($this->primary_element);
+	}
 
 	public function brand($link = null){
-		$a = $this->el($link ? 'a' : 'div',['class'=>'navbar-brand']);
+		$a = $this->primary_element->el($link ? 'a' : 'div',['class'=>'navbar-brand']);
 		if($link) $a->at(['href'=>$link]);
 		return $a;
 	}
 
 	public function toggler($id = 'navbarMain'){
-		$toggle = $this->el('button',[
+		$this->primary_element->el('button',[
 			'class'=>'navbar-toggler',
 			'data-bs-toggle'=>'collapse',
 			'data-bs-target'=>'#'.$id
-		]);
-		$toggle->el('span',['class'=>'navbar-toggler-icon']);
+		])->el('span',['class'=>'navbar-toggler-icon']);
 	}
 
 	public function collapse($id = 'navbarMain'){
-		$element = new BootSomeNavbarCollapse('div');
-		$this->appendChild($element);
-		$element->at([
+		return new BootSomeNavbarCollapse($this->primary_element, $id);
+	}
+}
+
+class BootSomeNavbarCollapse extends HealWrapper {
+	public function __construct($parent, $id){
+		$this->primary_element = $parent->el('div',[
 			'id'=>$id,
 			'class'=>'collapse navbar-collapse',
 			'data-toggle'=>"collapse",
 			'data-target'=>'#'.$id.'.show'
 		]);
-		return $element;
+	}
+
+	public function nav(){
+		return new BootSomeNavbarNav($this->primary_element);
 	}
 }
 
-class BootSomeNavbarCollapse extends BootSomeElement {
-	use BootSomeNavbarCommon;
-}
+class BootSomeNavbarNav extends HealWrapper {
+	public function __construct($parent){
+		$this->primary_element = $parent->el('div',['class'=>'navbar-nav']);
+	}
 
-class BootSomeNavbarNav extends BootSomeElement {
 	public function a($href = null, $text = '', $active = false){
-		$a = $this->el('a',['class'=>'nav-item nav-link']);
+		$a = $this->primary_element->el('a',['class'=>'nav-item nav-link']);
 		if(!empty($text)) $a->te($text);
 		if(isset($href)){
 			$a->at(['href'=>$href]);
@@ -62,31 +82,29 @@ class BootSomeNavbarNav extends BootSomeElement {
 	}
 
 	public function dropdown($text, $active = false){
-		$div = $this->el('div',['class'=>'nav-item dropdown']);
+		$div = $this->primary_element->el('div',['class'=>'nav-item dropdown']);
 		if($active) $div->at(['class'=>'active'], true);
 		$div->el('a',['class'=>'nav-link dropdown-toggle','data-bs-toggle'=>'dropdown','role'=>'button'])->te($text);
 
-		$element = new BootSomeNavbarDropDown('div');
-		$div->appendChild($element);
-		$element->at(['class'=>'dropdown-menu dropdown-menu-end']);
-		return $element;
+		return new BootSomeNavbarDropDown($div);
 	}
 
 	public function dropdown_icon($icon, $active = false){
-		$div = $this->el('div',['class'=>'nav-item dropdown']);
+		$div = $this->primary_element->el('div',['class'=>'nav-item dropdown']);
 		if($active) $div->at(['class'=>'active'], true);
 		$div->el('a',['class'=>'nav-link dropdown-toggle','data-bs-toggle'=>'dropdown','role'=>'button'])->icon($icon);
 
-		$element = new BootSomeNavbarDropDown('div');
-		$div->appendChild($element);
-		$element->at(['class'=>'dropdown-menu dropdown-menu-end']);
-		return $element;
+		return new BootSomeNavbarDropDown($div);
 	}
 }
 
-class BootSomeNavbarDropDown extends BootSomeElement {
+class BootSomeNavbarDropDown extends HealWrapper {
+	public function __construct($parent){
+		$this->primary_element = $parent->el('div',['class'=>'dropdown-menu dropdown-menu-end']);
+	}
+
 	public function a($href, $text = '', $active = false){
-		$a = $this->el('a',['class'=>'dropdown-item']);
+		$a = $this->primary_element->el('a',['class'=>'dropdown-item']);
 		if(!empty($text)) $a->te($text);
 		if(isset($href)){
 			$a->at(['href'=>$href]);
@@ -97,6 +115,6 @@ class BootSomeNavbarDropDown extends BootSomeElement {
 		return $a;
 	}
 	public function divider(){
-		$this->el('div',['class'=>'dropdown-divider']);
+		$this->primary_element->el('div',['class'=>'dropdown-divider']);
 	}
 }

@@ -3,18 +3,28 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
-class BootSomeNavs extends HealElement {
+class BootSomeNavs extends HealPlugin {
+	public static function navs($parent, $type = null){
+		return new BootSomeNavs($parent, $type);
+	}
+
+	public function __construct($parent, $type = null){
+		$this->primary_element = $parent->el('ul',['class'=>'nav']);
+		if($type) $this->primary_element->at(['class'=>'nav-'.$type],true);
+	}
+
 	public function item(){
-		$element = new BootSomeNavsNode('li');
-		$this->appendChild($element);
-		$element->at(['class'=>'nav-item']);
-		return $element;
+		return new BootSomeNavsNode($this->primary_element);
 	}
 }
 
-class BootSomeNavsNode extends BootSomeElement {
+class BootSomeNavsNode extends HealWrapper {
+	public function __construct($parent){
+		$this->primary_element = $parent->el('li',['class'=>'nav-item']);
+	}
+
 	public function a($href, $text = '', $active = false){
-		$a = $this->el('a',['href'=>$href,'class'=>'nav-link']);
+		$a = $this->primary_element->el('a',['href'=>$href,'class'=>'nav-link']);
 		if(!empty($text)) $a->te($text);
 		if($active) $a->at(['class'=>'active'], true);
 		return $a;

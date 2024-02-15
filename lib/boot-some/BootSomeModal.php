@@ -3,12 +3,65 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
-trait BootSomeModalNode {
-	public function header(){
-		$element = new BootSomeModalHeader('div');
-		$this->appendChild($element);
-		$element->at(['class'=>'modal-header']);
+class BootSomeModal extends HealPlugin {
+	public static function modal($parent, $xl = true){
+		$dialog = $parent->el('div',['class'=>'modal']);
+		if($xl) $dialog->at(['class'=>'modal-xl'],true);
+
+		$dialog = $dialog->el('div',['class'=>'modal-dialog']);
+
+		$element = new BootSomeModal($dialog);
+		$parent->el('div',['class'=>'modal-backdrop']);
 		return $element;
+	}
+
+	public function __construct($parent){
+		$this->primary_element = $parent->el('div',['class'=>'modal-content']);
+	}
+
+	public function modalgroup($id = 'dialogbody'){
+		$element = new BootSomeModal($this->primary_element);
+		$element->at(['id'=>$id]);
+		return $element;
+	}
+
+	public function header(){
+		return new BootSomeModalHeader($this->primary_element);
+	}
+
+	public function footer(){
+		$element = $this->primary_element->el('div',['class'=>'modal-footer']);
+		return $element;
+	}
+
+	public function body($id = null){
+		if(!isset($id)) {
+			return $this->primary_element->el('div',['class'=>'modal-body']);
+		} else {
+			$body = $this->primary_element->el('form',['class'=>'modal-body']);
+			if(!empty($id)) $body->at(['id'=>$id]);
+			return $body;
+		}
+	}
+}
+
+class BootSomeModalHeader extends HealWrapper {
+	public function __construct($parent){
+		$this->primary_element = $parent->el('div',['class'=>'modal-header']);
+	}
+
+	public function title($text){
+		return $this->primary_element->el('h3',['class'=>'modal-title'])->te($text);
+	}
+
+	public function close(){
+		return $this->primary_element->el('button',['class'=>'btn-close','type'=>'button']);
+	}
+}
+
+class BootSomeModalGroup extends BootSome {
+	public function header(){
+		return new BootSomeModalHeader($this);
 	}
 
 	public function footer(){
@@ -18,38 +71,11 @@ trait BootSomeModalNode {
 
 	public function body($id = null){
 		if(!isset($id)) {
-			 $body = $this->el('div');
-		}
-		else {
-			$body = $this->el('form');
+			return $this->el('div',['class'=>'modal-body']);
+		} else {
+			$body = $this->el('form',['class'=>'modal-body']);
 			if(!empty($id)) $body->at(['id'=>$id]);
+			return $body;
 		}
-		$body->at(['class'=>'modal-body']);
-		return $body;
 	}
-}
-
-class BootSomeModal extends BootSomeElement {
-	use BootSomeModalNode;
-
-	public function modalgroup($id = 'dialogbody'){
-		$element = new BootSomeModal('div');
-		$this->appendChild($element);
-		$element->at(['id'=>$id]);
-		return $element;
-	}
-}
-
-class BootSomeModalHeader extends BootSomeElement {
-	public function title($text){
-		return $this->el('h3',['class'=>'modal-title'])->te($text);
-	}
-
-	public function close(){
-		return $this->el('button',['class'=>'btn-close','type'=>'button']);
-	}
-}
-
-class BootSomeModalGroup extends BootSome {
-	use BootSomeModalNode;
 }

@@ -3,53 +3,57 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
-class BootSomeTable extends HealElement {
+class BootSomeTable extends HealPlugin {
+	public static function table($parent){
+		return new BootSomeTable($parent);
+	}
+
+	public function __construct($parent){
+		$this->primary_element = $parent->el('div',['class'=>'table-responsive'])->el('table',['class'=>'table']);
+	}
+
 	public function thead(){
-		$element = new BootSomeTableNode('thead');
-		$this->appendChild($element);
-		return $element;
+		return new BootSomeTableNode($this->primary_element,'thead');
 	}
 
 	public function tbody(){
-		$element = new BootSomeTableNode('tbody');
-		$this->appendChild($element);
-		return $element;
+		return new BootSomeTableNode($this->primary_element,'tbody');
 	}
 
 	public function tfoot(){
-		$element = new BootSomeTableNode('tfoot');
-		$this->appendChild($element);
-		return $element;
+		return new BootSomeTableNode($this->primary_element,'tfoot');
 	}
 }
 
-class BootSomeTableNode extends HealElement {
+class BootSomeTableNode extends HealWrapper {
+	public function __construct($parent, $type){
+		$this->primary_element = $parent->el($type);
+	}
+
 	public function tr($color = null){
-		$element = new BootSomeTableTr('tr');
-		$this->appendChild($element);
-		if($color) $element->at(['class'=>'table-'.$color]);
-		return $element;
+		return new BootSomeTableRow($this->primary_element, $color);
 	}
 
 	public function tr_template($arr){
-		$element = new BootSomeTableNode('template');
-		$this->appendChild($element);
-		$element->at($arr);
-		return $element;
+		$node = new BootSomeTableNode($this->primary_element,'template');
+		return $node->at($arr);
 	}
 }
 
-class BootSomeTableTr extends HealElement {
+class BootSomeTableRow extends HealWrapper {
+	public function __construct($parent, $color = null){
+		$element = $this->primary_element = $parent->el('tr');
+		if($color) $element->at(['class'=>'table-'.$color]);
+	}
+
 	public function td($color = null){
-		$element = new BootSomeElement('td');
-		$this->appendChild($element);
+		$element = $this->primary_element->el('td');
 		if($color) $element->at(['class'=>'table-'.$color]);
 		return $element;
 	}
 
 	public function th($color = null){
-		$element = new BootSomeElement('th');
-		$this->appendChild($element);
+		$element = $this->primary_element->el('th');
 		if($color) $element->at(['class'=>'table-'.$color]);
 		return $element;
 	}
