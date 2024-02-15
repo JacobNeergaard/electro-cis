@@ -17,8 +17,8 @@ $mysqli->set_charset('utf8mb4');
 function head() {
 	BootSome::$head->link('shortcut icon','#');
 	
-	BootSome::$head->css('lib/bootstrap/bootstrap.min.css');
-	BootSome::$head->css('lib/fontawesome/css/all.min.css');
+	BootSome::$head->css('lib/fontawesome/css/fontawesome.min.css');
+	BootSome::$head->css('lib/fontawesome/css/solid.min.css');
 	BootSome::$head->css('lib/boot-some//BootSome.css');
 	
 	BootSome::$head->el('script',['src'=>'lib/bootstrap/bootstrap.bundle.min.js']);
