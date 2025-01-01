@@ -3,6 +3,8 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
+declare(strict_types=1);
+
 class BootSomeLayout extends HealPlugin {
 	public static function container($parent, $fluid = false, $element = 'div'){
 		$head = $parent->el($element)->at(['class'=>$fluid?'container-fluid':'container']);
@@ -19,7 +21,7 @@ class BootSomeLayout extends HealPlugin {
 		return $row;
 	}
 
-	public static function pagination($parent, $total, $limit, $page, $url){
+	public static function pagination(object $parent,int $total,int $limit,int $page,object $url){
 		if($total<=$limit) return $parent;
 
 		$pages = (ceil($total/$limit));
@@ -69,7 +71,7 @@ class BootSomeLayout extends HealPlugin {
 
 		for($i=$start;$i<=$end;$i++) {
 			$li = $nav->el('li',['class'=>'page-item']);
-			$button = $li->el('button',['type'=>'button','class'=>'page-link'])->te($i);
+			$button = $li->el('button',['type'=>'button','class'=>'page-link'])->te((string) $i);
 			if($page==$i) {
 				$li->at(['class'=>'active'],true);
 			}
@@ -84,7 +86,7 @@ class BootSomeLayout extends HealPlugin {
 			$li->at(['class'=>'disabled'],true);
 
 			$li = $nav->el('li',['class'=>'page-item']);
-			$button = $li->el('button',['type'=>'button','class'=>'page-link'])->te($pages);
+			$button = $li->el('button',['type'=>'button','class'=>'page-link'])->te((string) $pages);
 			$button->at($url($pages));
 		}
 

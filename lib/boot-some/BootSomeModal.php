@@ -3,6 +3,8 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
+declare(strict_types=1);
+
 class BootSomeModal extends HealPlugin {
 	public static function modal($parent, $xl = true){
 		$dialog = $parent->el('div',['class'=>'modal']);

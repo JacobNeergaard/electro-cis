@@ -3,6 +3,8 @@
 UfoAjax is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/ufo-ajax/blob/master/LICENSE
 */
+declare(strict_types=1);
+
 class Ufo {
 	public static function get_clean(){
 		$instance = self::get_instance();
@@ -148,6 +150,9 @@ class Ufo {
 		}
 		if(!empty($this->messages)){
 			$error = error_get_last();
+			if(!headers_sent()) {
+				header('Content-Type: application/json; charset=utf-8');
+			}
 			if(headers_sent() || isset($error)) echo "\x02";
 			echo json_encode($this->messages);
 		}

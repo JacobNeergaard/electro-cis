@@ -3,7 +3,9 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
+declare(strict_types=1);
 require_once __DIR__.'/BootSomeFormsInputGroup.php';
+
 class BootSomeForms extends HealPlugin {
 	public static function form_row($parent){
 		//Legacy Support
@@ -43,6 +45,10 @@ class BootSomeForms extends HealPlugin {
 		return $parent->el('select',['id'=>$name,'name'=>$name,'class'=>'form-select']);
 	}
 
+	public static function optgroup($parent, $label){
+		return $parent->el('optgroup',['label'=>$label]);
+	}
+
 	public static function option($parent, $text, $value = null, $selected = false){
 		$option = $parent->el('option')->te($text);
 		if($selected) $option->at(['selected']);
@@ -77,7 +83,7 @@ class BootSomeForms extends HealPlugin {
 	}
 
 	public static function textarea($parent, $name, $content = ''){
-		return $parent->el('textarea',['name'=>$name,'class'=>'form-control'])->te($content);
+		return $parent->el('textarea',['id'=>$name,'name'=>$name,'class'=>'form-control'])->te($content);
 	}
 
 	public static function checkbox($parent, $name, $checked = false, $value = 'on', $text = null, $inline = false){
@@ -155,8 +161,10 @@ class BootSomeFormsGroup extends HealWrapper {
 		}
 	}
 
-	public function text($text){
-		return $this->primary_element->el('small',['class'=>'form-text'])->te($text);
+	public function text($text,$color = null){
+		$text = $this->primary_element->el('small',['class'=>'form-text'])->te($text);
+		if($color) $text->at(['class'=>'text-'.$color],true);
+		return $text;
 	}
 }
 
@@ -184,8 +192,10 @@ class BootSomeFormsHorizontal extends HealWrapper {
 		return $label;
 	}
 
-	public function text($text){
-		$this->wrap()->el('class',['class'=>'form-text'])->te($text);
+	public function text($text,$color = null){
+		$text = $this->wrap()->el('class',['class'=>'form-text'])->te($text);
+		if($color) $text->at(['class'=>'text-'.$color],true);
+		return $text;
 	}
 }
 

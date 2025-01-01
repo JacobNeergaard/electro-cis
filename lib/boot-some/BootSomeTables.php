@@ -3,6 +3,8 @@
 BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
+declare(strict_types=1);
+
 class BootSomeTable extends HealPlugin {
 	public static function table($parent){
 		return new BootSomeTable($parent);
