@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL | E_STRICT);
-
 date_default_timezone_set('Europe/Copenhagen');
 
 define('TITLE','Electro :: CIS');
@@ -8,6 +6,7 @@ define('TITLE','Electro :: CIS');
 require_once __DIR__.'/lib/heal-document/HealDocument.php';
 require_once __DIR__.'/lib/boot-some/BootSome.php';
 require_once __DIR__.'/lib/ufo-ajax/ufo.php';
+require_once __DIR__.'/lib/wild-file/WildFile.php';
 
 require_once __DIR__.'/config.inc.php';
 
