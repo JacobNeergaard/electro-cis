@@ -11,14 +11,16 @@ CREATE TABLE `item` (
 	`item` int(6) unsigned zerofill NOT NULL,
 	`description` varchar(60) NOT NULL,
 	`value` varchar(20) NOT NULL,
-	`symbol_id` int(10) unsigned NOT NULL,
-	`footprint_id` int(10) unsigned NOT NULL,
-	`maxtemp` int(3) unsigned NOT NULL,
-	`datasheet` longblob NOT NULL,
-	`manufacturer` varchar(30) NOT NULL,
-	`partnumber` varchar(30) NOT NULL,
-	`mouser` varchar(20) NOT NULL,
-	PRIMARY KEY (`item`)
+	`symbol_id` int(10) unsigned DEFAULT NULL,
+	`footprint_id` int(10) unsigned DEFAULT NULL,
+	`maxtemp` int(3) unsigned NOT NULL DEFAULT 0,
+	`datasheet` longblob DEFAULT NULL,
+	`manufacturer` varchar(30) NOT NULL DEFAULT '',
+	`partnumber` varchar(30) NOT NULL DEFAULT '',
+	`mouser` varchar(20) NOT NULL DEFAULT '',
+	PRIMARY KEY (`item`),
+	FOREIGN KEY (`symbol_id`) REFERENCES `symbol` (`id`),
+	FOREIGN KEY (`footprint_id`) REFERENCES `footprint` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `structure` (
