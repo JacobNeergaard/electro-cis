@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once __DIR__.'/../header.inc.php';
 
 $sql = "SELECT `name`,`data` FROM footprint ORDER BY name";

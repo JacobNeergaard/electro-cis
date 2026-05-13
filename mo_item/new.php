@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once __DIR__.'/../header.inc.php';
 
 $doc = new BootSome();
@@ -20,7 +21,7 @@ $select = $fg->select('group')->at(['required']);
 $sql = "SELECT `group` as id,CONCAT(`group`,' ',`name`) as name
 	FROM structure WHERE `group` LIKE '%x' ORDER BY `group`";
 $query = $mysqli->query($sql);
-$select->option(null);
+$select->option('');
 $select->options($query);
 
 $fg = $mbody->form_horizontal();
@@ -28,7 +29,7 @@ $fg->label('E24','e24');
 $select = $fg->select('e24');
 $sql = "SELECT `number` as id,CONCAT(`number`,' - ',`value`) as name FROM structure_e24 ORDER BY `number`";
 $query = $mysqli->query($sql);
-$select->option(null);
+$select->option('');
 $select->options($query);
 
 $footer = $modal->footer();

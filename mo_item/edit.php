@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once __DIR__.'/../header.inc.php';
 
 $item = $mysqli->real_escape_string($_GET['item']);
@@ -42,7 +43,7 @@ $fg->label('Symbol','symbol_id');
 $select = $fg->select('symbol_id');
 $sql = "SELECT id,name FROM symbol ORDER BY name";
 $query = $mysqli->query($sql);
-$select->option(null);
+$select->option('');
 $select->options($query,$rs->symbol_id);
 
 $fg = $mbody->form_horizontal();
@@ -50,7 +51,7 @@ $fg->label('Footprint','footprint_id');
 $select = $fg->select('footprint_id');
 $sql = "SELECT id,name FROM footprint ORDER BY name";
 $query = $mysqli->query($sql);
-$select->option(null);
+$select->option('');
 $select->options($query,$rs->footprint_id);
 
 $group = $mbody->form_horizontal();

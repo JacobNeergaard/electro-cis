@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once __DIR__.'/../header.inc.php';
 
 $item = $mysqli->real_escape_string($_POST['item']);
@@ -15,6 +16,5 @@ if($item && $description) {
 else {
 	Ufo::abort('dialog');
 }
-
 
 Ufo::update('main');

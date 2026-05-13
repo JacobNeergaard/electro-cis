@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 require_once __DIR__.'/../header.inc.php';
 
 $name = $mysqli->real_escape_string($_POST['name']);
