@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeCarousel extends HealPlugin {
+class BootSomeCarousel extends \TRP\HealDocument\Plugin {
 	private $id;
 	private $inner = null;
 	private $items = 0;
@@ -47,7 +47,7 @@ class BootSomeCarousel extends HealPlugin {
 	}
 }
 
-class BootSomeCarouselItem extends HealWrapper {
+class BootSomeCarouselItem extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent, $url, $alt, $active){
 		$this->primary_element = $item = $parent->el('div',['class'=>'carousel-item']);
 		if($active) $item->at(['class'=>'active'],true);

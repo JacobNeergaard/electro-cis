@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeLayout extends HealPlugin {
+class BootSomeLayout extends \TRP\HealDocument\Plugin {
 	public static function container($parent, $fluid = false, $element = 'div'){
 		$head = $parent->el($element)->at(['class'=>$fluid?'container-fluid':'container']);
 		return $head;
@@ -152,7 +152,7 @@ class BootSomeLayout extends HealPlugin {
 	}
 }
 
-class BootSomeRow extends HealWrapper {
+class BootSomeRow extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent,$class){
 		$class = implode(' ',array_merge(['row'],$class));
 		$this->primary_element = $parent->el('div',['class'=>$class]);

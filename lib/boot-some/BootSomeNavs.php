@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeNavs extends HealPlugin {
+class BootSomeNavs extends \TRP\HealDocument\Plugin {
 	public static function navs($parent, $type = null){
 		return new BootSomeNavs($parent, $type);
 	}
@@ -20,7 +20,7 @@ class BootSomeNavs extends HealPlugin {
 	}
 }
 
-class BootSomeNavsNode extends HealWrapper {
+class BootSomeNavsNode extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent){
 		$this->primary_element = $parent->el('li',['class'=>'nav-item']);
 	}

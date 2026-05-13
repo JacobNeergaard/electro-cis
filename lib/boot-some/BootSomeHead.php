@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeHead extends HealPlugin {
+class BootSomeHead extends \TRP\HealDocument\Plugin {
 	public static function head($parent, $title = null, $charset = 'UTF-8'){
 		$head = $parent->el('head');
 		if(!empty($title)) $head->el('title')->te($title);

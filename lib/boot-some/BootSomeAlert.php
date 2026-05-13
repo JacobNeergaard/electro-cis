@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeAlert extends HealPlugin {
+class BootSomeAlert extends \TRP\HealDocument\Plugin {
 	public static function alert($parent, $color = null,$center = false){
 		if($color===null) $color = 'primary';
 		$alert = $parent->el('div',['class'=>'alert alert-'.$color]);

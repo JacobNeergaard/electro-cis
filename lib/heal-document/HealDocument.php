@@ -4,70 +4,23 @@ HealDocument is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/heal-document/blob/master/LICENSE.txt
 */
 declare(strict_types=1);
+namespace TRP\HealDocument;
+require_once __DIR__."/Component.php";
+require_once __DIR__."/NodeParent.php";
+require_once __DIR__."/Element.php";
+require_once __DIR__."/Fragment.php";
+require_once __DIR__."/Wrapper.php";
+require_once __DIR__."/PluginInterface.php";
+require_once __DIR__."/Plugin.php";
 
-trait HealNodeParent {
-	public function el($name, $attributes = [], $append = false) : HealComponent {
-		$element = static::createElementHeal($name);
-		$this->appendChild($element);
-		$element->at($attributes,$append);
-		return $element;
-	}
-
-	public function te($str, $break_on_newline = false) : HealComponent {
-		if(!isset($str)) return $this;
-		if($break_on_newline){
-			$lines = explode("\n",str_replace("\r",'',$str));
-			$firstline = true;
-			foreach($lines as $line){
-				if(!$firstline){
-					$this->el('br');
-				} else {
-					$firstline = false;
-				}
-				$this->appendChild(new DOMText($line));
-			}
-		} else {
-			$this->appendChild(new DOMText($str));
-		}
-		// return $this to allow chaining
-		return $this;
-	}
-
-	public function co($str) : HealComponent {
-		$this->appendChild(new DOMComment($str));
-		// return $this to allow chaining
-		return $this;
-	}
-
-	public function fr($str) : bool {
-		$fragment = $this->ownerDocument->createDocumentFragment();
-		if(@$fragment->appendXML($str)) {
-			$this->appendChild($fragment);
-			return true;
-		}
-		else {
-			$this->te("Error in: \"".$str."\"");
-			return false;
-		}
-	}
-
-	public function __call($name, $arguments){
-		return HealDocument::try_plugin($this, $name, $arguments);
-	}
-
-	protected static function createElementHeal($name) : HealComponent {
-		return new HealElement($name);
-	}
-}
-
-class HealDocument extends DOMDocument implements HealComponent {
-	use HealNodeParent;
+class HealDocument extends \DOMDocument implements Component {
+	use NodeParent;
 
 	private static $plugins = [], $plugin_name_cache = [], $has_prefixed_plugins = false;
 
 	private $toStringFormat;
 
-	public function __construct($version = 'html', $encoding = ''){
+	public function __construct(string $version = 'html', string $encoding = ''){
 		if($version == 'html'){
 			$this->toStringFormat = 'html';
 			parent::__construct('1.0',$encoding);
@@ -77,7 +30,7 @@ class HealDocument extends DOMDocument implements HealComponent {
 		}
 	}
 
-	public function __toString(){
+	public function __toString(): string {
 		$this->formatOutput = true;
 		if($this->toStringFormat == 'html'){
 			if(isset($this->firstChild->nodeName) && strtolower($this->firstChild->nodeName) == 'html'){
@@ -90,16 +43,16 @@ class HealDocument extends DOMDocument implements HealComponent {
 		}
 	}
 
-	public function at($values, $append = false) : HealComponent {
+	public function at(array $values, bool $append = false): Component {
 		throw new \Exception("Not Supported");
 	}
 
-	public static function register_plugin($classname, $prefix = null){
+	public static function register_plugin(string $classname, ?string $prefix = null): void {
 		if(!class_exists($classname)){
 			throw new \Exception("HealDocument can't find class '$classname'");
 		}
-		if(!is_subclass_of($classname, 'HealPluginInterface')){
-			throw new \Exception("HealDocument can't register plugin '$classname', because it doesn't implement HealPluginInterface or extend the HealPlugin abstract class.");
+		if(!is_subclass_of($classname, '\TRP\HealDocument\PluginInterface')){
+			throw new \Exception("HealDocument can't register plugin '$classname', because it doesn't implement \TRP\HealDocument\PluginInterface or extend the \TRP\HealDocument\Plugin abstract class.");
 		}
 
 		if(isset($prefix)){
@@ -113,7 +66,7 @@ class HealDocument extends DOMDocument implements HealComponent {
 		}
 	}
 
-	public static function try_plugin($parent, $fullname, $arguments){
+	public static function try_plugin(Component $parent, string $fullname, array $arguments): Component {
 		if(isset(self::$plugin_name_cache[$fullname])){
 			$classname = self::$plugin_name_cache[$fullname][0];
 			$name = self::$plugin_name_cache[$fullname][1] ?? $fullname;
@@ -144,96 +97,3 @@ class HealDocument extends DOMDocument implements HealComponent {
 		throw new \Exception("HealDocument can't find function '$fullname'");
 	}
 }
-
-class HealElement extends DOMElement implements HealComponent {
-	use HealNodeParent;
-
-	public function at($values, $append = false) : HealComponent {
-		foreach($values as $name => $value){
-			if(is_numeric($name)){
-				$attr = $this->ownerDocument->createAttribute($value);
-			} else {
-				$attr = $this->ownerDocument->createAttribute($name);
-				if(isset($value)){
-					$value = htmlspecialchars((string) $value);
-
-					if($append && $this->hasAttribute($name)){
-						$value = $this->getAttribute($name).' '.$value;
-					}
-					$attr->value = $value;
-				} else {
-					if($append && $this->hasAttribute($name)){
-						continue;
-					}
-				}
-			}
-			$this->appendChild($attr);
-		}
-
-		// return $this to allow chaining
-		return $this;
-	}
-}
-
-interface HealComponent {
-	public function el($name, $attributes = [], $append = false) : HealComponent;
-	public function at($values, $append = false) : HealComponent;
-	public function te($str, $break_on_newline = false) : HealComponent;
-	public function co($str) : HealComponent;
-	public function fr($str) : bool;
-}
-
-abstract class HealWrapper implements HealComponent {
-	protected $primary_element;
-
-	public function el($name, $attributes = [], $append = false) : HealComponent {
-		return $this->primary_element->el($name, $attributes, $append);
-	}
-
-	public function at($values, $append = false) : HealComponent {
-		$this->primary_element->at($values, $append);
-		return $this;
-	}
-	public function te($str, $break_on_newline = false) : HealComponent {
-		$this->primary_element->te($str, $break_on_newline);
-		return $this;
-	}
-	public function co($str) : HealComponent {
-		$this->primary_element->co($str);
-		return $this;
-	}
-	public function fr($str) : bool {
-		$this->primary_element->fr($str);
-		return $this;
-	}
-	public function __call($name, $arguments){
-		return HealDocument::try_plugin($this, $name, $arguments);
-	}
-}
-
-interface HealPluginInterface {
-	public static function can_create($name) : bool;
-	public static function create($parent, $name, ...$arguments) : HealComponent;
-}
-
-abstract class HealPlugin extends HealWrapper implements HealPluginInterface {
-	public static function can_create($name) : bool{
-		return method_exists(static::class, $name) && (new ReflectionMethod(static::class, $name))->isStatic();
-	}
-
-	public static function create($parent, $name, ...$arguments) : HealComponent {
-		if(method_exists(static::class, $name)){
-			$object = static::$name($parent, ...$arguments);
-			if(is_a($object, static::class) && !isset($object->primary_element)){
-				$object->primary_element = $parent;
-			}
-			if(!is_a($object, 'HealComponent')){
-				throw new \Exception("HealPlugin failed to create element '$name': Returned element didn't implement HealComponent");
-			}
-			return $object;
-		} else {
-			throw new \Exception("HealPlugin failed to find method '$name'");
-		}
-	}
-}
-

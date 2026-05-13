@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeBasic extends HealPlugin {
+class BootSomeBasic extends \TRP\HealDocument\Plugin {
 	public static function img($parent, $src, $alt, $fluid = false){
 		$img = $parent->el('img',['src'=>$src,'alt'=>$alt]);
 		if($fluid) $img->at(['class'=>'img-fluid']);
@@ -33,6 +33,12 @@ class BootSomeBasic extends HealPlugin {
 
 	public static function hidden($parent, $name, $value){
 		return $parent->el('input',['type'=>'hidden','name'=>$name,'value'=>$value,'id'=>$name]);
+	}
+
+	public static function progress($parent, $value){
+		$div = $parent->el('div',['class'=>'progress']);
+		$div->el('div',['class'=>'progress-bar','style'=>'width: '.$value.'%']);
+		return $div;
 	}
 
 	public static function form($parent, $action = '', $method = 'get'){

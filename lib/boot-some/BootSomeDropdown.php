@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeDropDown extends HealPlugin {
+class BootSomeDropDown extends \TRP\HealDocument\Plugin {
 	public static function dropdown($parent, $text,$color = 'primary'){
 		$div = $parent->el('div', ['class'=>'dropdown']);
 		$div->el('button',['class'=>'btn btn-'.$color.' dropdown-toggle','data-bs-toggle'=>'dropdown'])->te($text);

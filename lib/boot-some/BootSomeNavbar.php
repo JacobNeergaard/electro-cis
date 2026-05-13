@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeNavbar extends HealPlugin {
+class BootSomeNavbar extends \TRP\HealDocument\Plugin {
 	public static function navbar($parent, $fluid = true, $nav_classes = ''){
 		$classes = array_filter(explode(' ','navbar '.$nav_classes));
 		$add_expand = true;
@@ -51,7 +51,7 @@ class BootSomeNavbar extends HealPlugin {
 	}
 }
 
-class BootSomeNavbarCollapse extends HealWrapper {
+class BootSomeNavbarCollapse extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent, $id){
 		$this->primary_element = $parent->el('div',[
 			'id'=>$id,
@@ -66,7 +66,7 @@ class BootSomeNavbarCollapse extends HealWrapper {
 	}
 }
 
-class BootSomeNavbarNav extends HealWrapper {
+class BootSomeNavbarNav extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent){
 		$this->primary_element = $parent->el('div',['class'=>'navbar-nav']);
 	}
@@ -100,7 +100,7 @@ class BootSomeNavbarNav extends HealWrapper {
 	}
 }
 
-class BootSomeNavbarDropDown extends HealWrapper {
+class BootSomeNavbarDropDown extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent){
 		$this->primary_element = $parent->el('div',['class'=>'dropdown-menu dropdown-menu-end']);
 	}

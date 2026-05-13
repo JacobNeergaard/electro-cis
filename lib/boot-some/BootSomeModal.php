@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeModal extends HealPlugin {
+class BootSomeModal extends \TRP\HealDocument\Plugin {
 	public static function modal($parent, $xl = true){
 		$dialog = $parent->el('div',['class'=>'modal']);
 		if($xl) $dialog->at(['class'=>'modal-xl'],true);
@@ -47,7 +47,7 @@ class BootSomeModal extends HealPlugin {
 	}
 }
 
-class BootSomeModalHeader extends HealWrapper {
+class BootSomeModalHeader extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent){
 		$this->primary_element = $parent->el('div',['class'=>'modal-header']);
 	}

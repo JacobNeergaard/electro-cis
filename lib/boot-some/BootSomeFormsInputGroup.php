@@ -4,9 +4,10 @@ BootSome is licensed under the Apache License 2.0 license
 https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
+
 require_once __DIR__.'/BootSomeLayout.php';
 
-class BootSomeFormsInputGroup extends HealWrapper {
+class BootSomeFormsInputGroup extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent){
 		$this->primary_element = $parent->el('div',['class'=>'input-group']);
 	}

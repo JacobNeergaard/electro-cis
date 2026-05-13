@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSomeTable extends HealPlugin {
+class BootSomeTable extends \TRP\HealDocument\Plugin {
 	public static function table($parent){
 		return new BootSomeTable($parent);
 	}
@@ -27,7 +27,7 @@ class BootSomeTable extends HealPlugin {
 	}
 }
 
-class BootSomeTableNode extends HealWrapper {
+class BootSomeTableNode extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent, $type){
 		$this->primary_element = $parent->el($type);
 	}
@@ -42,7 +42,7 @@ class BootSomeTableNode extends HealWrapper {
 	}
 }
 
-class BootSomeTableRow extends HealWrapper {
+class BootSomeTableRow extends \TRP\HealDocument\Wrapper {
 	public function __construct($parent, $color = null){
 		$element = $this->primary_element = $parent->el('tr');
 		if($color) $element->at(['class'=>'table-'.$color]);

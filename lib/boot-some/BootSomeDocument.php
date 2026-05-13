@@ -5,7 +5,7 @@ https://github.com/TRP-Solutions/boot-some/blob/master/LICENSE
 */
 declare(strict_types=1);
 
-class BootSome extends HealDocument {
+class BootSome extends \TRP\HealDocument\HealDocument {
 	public static $doc;
 	public static $head;
 	public static $body;
