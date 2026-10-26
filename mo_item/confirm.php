@@ -32,7 +32,7 @@ if(isset($_POST['group']) && $_POST['group']) {
 				$item = $test+1;
 			}
 		}
-		$item = $group.str_pad($item,6-strlen($group),'0',STR_PAD_LEFT);
+		$item = $group.str_pad((string) $item,6-strlen($group),'0',STR_PAD_LEFT);
 	}
 }
 else {
